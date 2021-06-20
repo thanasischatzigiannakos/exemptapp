@@ -1,0 +1,64 @@
+
+.signUpStudent{
+    align-items: center;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+   background-image: url("books.jpg") ;
+   background-repeat: no-repeat;
+   background-size: cover;
+    
+}
+
+.studentForm{
+    margin-left: 25%;
+    margin-right:25%;
+    width: 50%;
+    backdrop-filter: blur(10px);
+    box-shadow: 10px;
+   
+}
+
+.studentForm h2,h5{
+    color: #ffff;
+    margin-right: 5%;
+    margin-top: 5%;
+}
+
+.signUpProf{
+    align-items: center;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+   background-image: url("prof_bg.jpg") ;
+   background-repeat: no-repeat;
+   background-size: cover;
+    
+}
+
+.profForm{
+    margin-left: 25%;
+    margin-right:25%;
+    width: 50%;
+    backdrop-filter: blur(10px);
+    box-shadow: 10px;
+   
+}
+
+.profForm h2,h5{
+    color: #ffff;
+    margin-right: 5%;
+    margin-top: 5%;
+}
+
+.backToLogin{
+    margin-left: 35%;
+    margin-top: 5%;
+    
+}
+
+

@@ -7,12 +7,11 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Card from 'react-bootstrap/Card'
 import './signup.css'
-import aegeanlogo from '../login/aegean_logo.png'
-import bg_img from './books.jpg'
 
 
 
-export default function Signup() {
+
+export default function ProfSignUp() {
     const history = useHistory();
     const initialFormData = Object.freeze({
         email: '',
@@ -49,9 +48,9 @@ export default function Signup() {
 
 
     return (
-        <div class="signUpStudent">
-            <div class="studentForm">
-                <h2>Student Registration Form</h2>
+        <div class="signUpProf">
+            <div class="profForm">
+                <h2>Teaching Staff Registration Form</h2>
                 <Form onSubmit={handleSubmit} style={{ width: "35%", marginLeft: "30%", marginTop: "5%" }} >
                     <Form.Group id="email">
                         <Form.Label style={{ color: "white" }}>Email</Form.Label>
@@ -69,9 +68,13 @@ export default function Signup() {
                         <Form.Label style={{ color: "white" }}>Last Name</Form.Label>
                         <Form.Control maxLength="40" required />
                     </Form.Group>
-                    <Form.Group id="am">
-                        <Form.Label style={{ color: "white" }}>AM</Form.Label>
-                        <Form.Control maxLength="40" required />
+                    <Form.Group controlId="position">
+                        <Form.Label>Select your Position</Form.Label>
+                        <Form.Control as="select">
+                            <option value="PROFESSOR">Professor</option>
+                            <option value="ASSOCIATE_PROFESSOR">Associate Professor</option>
+                            <option value="ASSISTANT_PROFESSOR">Assistant Professor</option>
+                        </Form.Control>
                     </Form.Group>
                     <Form.Group id="password">
                         <Form.Label style={{ color: "white" }}>Password</Form.Label>
@@ -85,9 +88,9 @@ export default function Signup() {
                         Sign Up
                     </Button>
                     <h5>Already have an account? </h5>
-                <Link to="/login"><Button variant="outline-light" style={{ width:"100%" }}>
-                    Sign In To Your Account
-                </Button></Link>
+                    <Link to="/login"><Button variant="outline-light" style={{ width: "100%" }}>
+                        Sign In To Your Account
+                    </Button></Link>
                 </Form>
             </div>
 

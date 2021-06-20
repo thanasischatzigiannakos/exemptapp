@@ -1,0 +1,108 @@
+h1{
+    color: #ffff;
+    position: auto;
+    
+}
+
+h2{
+    position:relative;
+    text-align: center;
+}
+
+h5{
+    color:#ffff;
+    text-decoration: dashed;
+}
+
+
+.signUpArea{
+    width: 100%;
+    text-align: center;
+    margin-top: 10%;
+
+}
+
+.is-active{
+     font-weight: bold;
+     text-decoration-color: #ffff;
+}
+
+
+
+
+
+.split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.left {
+    left: 0;
+    background-color: #ffff;
+    background-position: center;
+    
+}
+
+.right {
+    right: 0;
+    background-color: #1650ce;
+    background-position: center;
+    
+    
+}
+
+img{
+    width: 50%;
+    border-radius: 10%;
+    left: 30%;
+    margin-left: 25%;
+    align-self: center;
+    
+}
+
+/*responsive*/
+
+@media only screen and (min-width: 768px) and (max-width: 991px){
+    .left{
+        top: 0;
+    }
+
+    .split{
+        height: 100%;
+        width: 100%;
+        padding-top: 5%;
+        padding-bottom: 5%;
+
+    }
+
+    .right{
+        top: 40%;
+    }
+
+
+}
+
+@media only screen and (max-width: 767px){
+    .left{
+        top: 0;
+
+    }
+
+    .split{
+        height: 100%;
+        width: 100%;
+        padding-top: 0;
+
+    }
+    
+    .right{
+        top: 40%;
+        margin-bottom: 20%;
+    }
+
+}
