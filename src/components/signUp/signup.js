@@ -3,12 +3,7 @@ import axiosInstance from '../../axios';
 import { useHistory, Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Tabs from 'react-bootstrap/Tabs';
-import Tab from 'react-bootstrap/Tab';
-import Card from 'react-bootstrap/Card'
 import './signup.css'
-import aegeanlogo from '../login/aegean_logo.png'
-import bg_img from './books.jpg'
 
 
 
@@ -18,6 +13,10 @@ export default function Signup() {
         email: '',
         username: '',
         password: '',
+        first_name: '',
+        last_name: '',
+        type: 'STUDENT',
+        am: '',
     });
 
     const [formData, updateFormData] = useState(initialFormData);
@@ -35,10 +34,17 @@ export default function Signup() {
         console.log(formData);
 
         axiosInstance
-            .post(`user/create/`, {
-                email: formData.email,
-                user_name: formData.username,
-                password: formData.password,
+            .post(`user/createStudent/`, {
+                user: {
+                    email: formData.email,
+                    user_name: formData.username,
+                    password: formData.password,
+                    first_name: formData.first_name,
+                    last_name: formData.last_name,
+                    type: 'STUDENT',
+                },
+                am: formData.am,
+                sign_up_date: '2021'
             })
             .then((res) => {
                 history.push('/login');
@@ -53,29 +59,29 @@ export default function Signup() {
             <div class="studentForm">
                 <h2>Student Registration Form</h2>
                 <Form onSubmit={handleSubmit} style={{ width: "35%", marginLeft: "30%", marginTop: "5%" }} >
-                    <Form.Group id="email">
+                    <Form.Group >
                         <Form.Label style={{ color: "white" }}>Email</Form.Label>
-                        <Form.Control type="email" required />
+                        <Form.Control type="email" id="email" name="email" onChange={handleChange} required />
                     </Form.Group>
-                    <Form.Group id="username">
+                    <Form.Group >
                         <Form.Label style={{ color: "white" }}>Username</Form.Label>
-                        <Form.Control maxLength="40" required />
+                        <Form.Control maxLength="40" required id="username" name="username" onChange={handleChange} />
                     </Form.Group>
-                    <Form.Group id="first_name">
+                    <Form.Group >
                         <Form.Label style={{ color: "white" }}>Name</Form.Label>
-                        <Form.Control maxLength="40" required />
+                        <Form.Control maxLength="40" required id="first_name" name="first_name" onChange={handleChange} />
                     </Form.Group>
-                    <Form.Group id="last_name">
+                    <Form.Group >
                         <Form.Label style={{ color: "white" }}>Last Name</Form.Label>
-                        <Form.Control maxLength="40" required />
+                        <Form.Control maxLength="40" required id="last_name" name="last_name" onChange={handleChange} />
                     </Form.Group>
-                    <Form.Group id="am">
+                    <Form.Group >
                         <Form.Label style={{ color: "white" }}>AM</Form.Label>
-                        <Form.Control maxLength="40" required />
+                        <Form.Control maxLength="40" required id="am" name="am" onChange={handleChange} />
                     </Form.Group>
-                    <Form.Group id="password">
+                    <Form.Group>
                         <Form.Label style={{ color: "white" }}>Password</Form.Label>
-                        <Form.Control type="password" required />
+                        <Form.Control type="password" required id="password" name="password" onChange={handleChange} />
                     </Form.Group>
                     <Form.Group id="password-confirm">
                         <Form.Label style={{ color: "white" }}>Password Confirmation</Form.Label>
@@ -85,9 +91,9 @@ export default function Signup() {
                         Sign Up
                     </Button>
                     <h5>Already have an account? </h5>
-                <Link to="/login"><Button variant="outline-light" style={{ width:"100%" }}>
-                    Sign In To Your Account
-                </Button></Link>
+                    <Link to="/login"><Button variant="outline-light" style={{ width: "100%" }}>
+                        Sign In To Your Account
+                    </Button></Link>
                 </Form>
             </div>
 

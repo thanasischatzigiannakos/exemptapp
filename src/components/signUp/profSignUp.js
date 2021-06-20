@@ -3,9 +3,6 @@ import axiosInstance from '../../axios';
 import { useHistory, Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Tabs from 'react-bootstrap/Tabs';
-import Tab from 'react-bootstrap/Tab';
-import Card from 'react-bootstrap/Card'
 import './signup.css'
 
 
@@ -17,6 +14,12 @@ export default function ProfSignUp() {
         email: '',
         username: '',
         password: '',
+        first_name: '',
+        last_name: '',
+        type: 'PROFESSOR',
+        rank: '',
+
+
     });
 
     const [formData, updateFormData] = useState(initialFormData);
@@ -34,10 +37,17 @@ export default function ProfSignUp() {
         console.log(formData);
 
         axiosInstance
-            .post(`user/create/`, {
-                email: formData.email,
-                user_name: formData.username,
-                password: formData.password,
+            .post(`user/createProfessor/`, {
+                user: {
+                    email: formData.email,
+                    user_name: formData.username,
+                    password: formData.password,
+                    first_name: formData.first_name,
+                    last_name: formData.last_name,
+                    type: 'PROFESSOR'
+                },rank: formData.rank
+
+
             })
             .then((res) => {
                 history.push('/login');
@@ -51,40 +61,40 @@ export default function ProfSignUp() {
         <div class="signUpProf">
             <div class="profForm">
                 <h2>Teaching Staff Registration Form</h2>
-                <Form onSubmit={handleSubmit} style={{ width: "35%", marginLeft: "30%", marginTop: "5%" }} >
-                    <Form.Group id="email">
+                <Form style={{ width: "35%", marginLeft: "30%", marginTop: "5%" }} >
+                    <Form.Group >
                         <Form.Label style={{ color: "white" }}>Email</Form.Label>
-                        <Form.Control type="email" required />
+                        <Form.Control type="email" id="email" name="email" onChange={handleChange} required />
                     </Form.Group>
-                    <Form.Group id="username">
+                    <Form.Group >
                         <Form.Label style={{ color: "white" }}>Username</Form.Label>
-                        <Form.Control maxLength="40" required />
+                        <Form.Control id="username" name="username" maxLength="40" onChange={handleChange} required />
                     </Form.Group>
-                    <Form.Group id="first_name">
+                    <Form.Group >
                         <Form.Label style={{ color: "white" }}>Name</Form.Label>
-                        <Form.Control maxLength="40" required />
+                        <Form.Control id="first_name" name="first_name"  maxLength="40" onChange={handleChange} required />
                     </Form.Group>
-                    <Form.Group id="last_name">
+                    <Form.Group  >
                         <Form.Label style={{ color: "white" }}>Last Name</Form.Label>
-                        <Form.Control maxLength="40" required />
+                        <Form.Control id="last_name" name="last_name" maxLength="40" onChange={handleChange} required />
                     </Form.Group>
-                    <Form.Group controlId="position">
-                        <Form.Label>Select your Position</Form.Label>
-                        <Form.Control as="select">
+                    <Form.Group>
+                        <Form.Label style={{ color: "white" }}>Select your Position</Form.Label>
+                        <Form.Control as="select" id="rank" name="rank" onChange={handleChange} >
                             <option value="PROFESSOR">Professor</option>
                             <option value="ASSOCIATE_PROFESSOR">Associate Professor</option>
                             <option value="ASSISTANT_PROFESSOR">Assistant Professor</option>
                         </Form.Control>
                     </Form.Group>
-                    <Form.Group id="password">
+                    <Form.Group  >
                         <Form.Label style={{ color: "white" }}>Password</Form.Label>
-                        <Form.Control type="password" required />
+                        <Form.Control id="password" name="password" type="password" onChange={handleChange} required />
                     </Form.Group>
-                    <Form.Group id="password-confirm">
+                    <Form.Group >
                         <Form.Label style={{ color: "white" }}>Password Confirmation</Form.Label>
-                        <Form.Control type="password" required />
+                        <Form.Control id="password-confirm" type="password" required />
                     </Form.Group>
-                    <Button className="w-100" type="submit" variant="light">
+                    <Button className="w-100" type="submit" variant="light" onClick={handleSubmit} >
                         Sign Up
                     </Button>
                     <h5>Already have an account? </h5>
