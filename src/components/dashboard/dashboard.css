@@ -1,0 +1,11 @@
+
+.graphDiv{
+    margin-top: 5%;
+    margin-right: 10%;
+    width: 30%;
+    height: 30%;
+}
+
+.dashboardPage{
+    display: flex;
+}

@@ -21,20 +21,19 @@ export default function ClassesList() {
                 console.log(res.data)
             });
         } catch (error) { console.log(error.message) }
-
-
     };
 
     useEffect(() => {
         fetchClasses();
+        
 
 
     }, [classList.join(",")])
 
     return (
-        <div class="classesLanding">
+        <div className="classesLanding">
             <h2>Available Classes</h2>
-            <div class="classesPanel">
+            <div className="classesPanel">
                 <ListGroup>
                     {classList.map(function (d, idx) {
                         return (<ListGroup.Item key={idx}>

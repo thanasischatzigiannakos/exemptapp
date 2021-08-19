@@ -1,0 +1,17 @@
+.updateInfo {
+    background-color: #ffffff;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+.updateForm {
+    justify-content: center;
+    align-self: center;
+    width: 50%;
+    height: 80%;
+    margin-left: 25%;
+}
+

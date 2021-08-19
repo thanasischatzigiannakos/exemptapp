@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './login.css'
 import aegeanlogo from './aegean_logo.png';
+import jwt_decode from "jwt-decode"
 
 export default function LogIn() {
 	const history = useHistory();
@@ -34,37 +35,39 @@ export default function LogIn() {
 			.then((res) => {
 				localStorage.setItem('access_token', res.data.access);
 				localStorage.setItem('refresh_token', res.data.refresh);
+				const id = jwt_decode(res.data.access)
+				localStorage.setItem('user_id', id["user_id"]);
 				axiosInstance.defaults.headers['Authorization'] =
 					'JWT ' + localStorage.getItem('access_token');
-				history.push('/');
-				//console.log(res);
-				//console.log(res.data);
+				console.log(res);
+				console.log(res.data);
+				history.push('/dashboard');
 			});
 	};
 
 	return (
 
 		<div className="login">
-			<div class="split left">
+			<div className="split left">
 				<img src={aegeanlogo} alt="University of the Aegean"></img>
 				<h2>School of Engineering</h2>
 				<h2>Information and Communication Systems Engineering Department</h2>
 
 			</div>
 
-			<div class="split right">
+			<div className="split right">
 				<Form style={{ width: "35%", marginLeft: "30%", marginTop: "25%" }} >
 					<h1>Sign In</h1>
-					<Form.Group controlId="formBasicEmail">
+					<Form.Group>
 						<Form.Label style={{ color: "#ffff" }} >Email address</Form.Label>
-						<Form.Control type="email" placeholder="Enter email" required onChange={handleChange}/>
+						<Form.Control type="email" id="email" name="email" placeholder="Enter email" required onChange={handleChange}/>
 					</Form.Group>
 
-					<Form.Group controlId="formBasicPassword">
+					<Form.Group >
 						<Form.Label style={{ color: "#ffff" }}>Password</Form.Label>
-						<Form.Control type="password" placeholder="Password" required onChange={handleChange} />
+						<Form.Control type="password" id="password" placeholder="Password" name="password" required onChange={handleChange} />
 					</Form.Group>
-					<Button variant="light" type="submit" style={{ marginLeft: "40%, marginTop:10%", width:"100%" }} onSubmit={handleSubmit}>
+					<Button variant="light" type="submit"  style={{ marginLeft: "40%, marginTop:10%", width:"100%" }} onClick={handleSubmit}>
 						Submit
 					</Button>
 					<div className = "signUpArea">

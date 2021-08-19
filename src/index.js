@@ -6,6 +6,11 @@ import App from './App'
 import LogIn from './components/login/login';
 import Signup from './components/signUp/signup';
 import ProfSignUp from './components/signUp/profSignUp';
+import ClassesList from './components/dashboard/classesList';
+import Dashboard from './components/dashboard/dashboard';
+import Logout from './components/dashboard/logout';
+import UserManagement from './components/user/userManagement';
+import ClassSignUp from './components/user/classSignUp';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const routing = (
@@ -15,8 +20,12 @@ const routing = (
 				<Route exact path="/" component={App} />
 				<Route path="/signup" component={Signup} />
 				<Route path="/profsignup" component={ProfSignUp} />
+				<Route path="/classes" component={ClassesList} />
+				<Route path="/dashboard" component={Dashboard} />
 				<Route path="/login" component={LogIn} />
-				{/* <Route path="/logout" component={Logout} /> */}
+				<Route path="/logout" component={Logout} />
+				<Route path="/userInfo" component={UserManagement}/>
+				<Route path="/classesSignUp" component={ClassSignUp}/>
 			</Switch>
 		</React.StrictMode>
 	</Router>
