@@ -1,0 +1,16 @@
+.classesListed{
+    width: 50%;
+    height: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.listItem{
+    display: flex;
+}
+
+.subToClass{
+    margin-top: 5%;
+    margin-left: 5%;
+    width: 15%;
+}
