@@ -18,8 +18,6 @@ export default function ClassSignUp() {
     const [loading, setLoading] = useState(false)
     const [userClasses, classesUpdate] = useState([]);
     const [listTeachings, teachingsUpdate] = useState([]);
-    const [teachingId, updateTeachingID] = useState(null)
-    const [userInfo, infoUpdate] = useState([]);
 
     async function Classes() {
         console.log('Fetching...')

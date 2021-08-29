@@ -17,7 +17,7 @@ export default function NavBar() {
             <Nav.Link href="/userInfo">My Information</Nav.Link>
             <Nav.Link href="/classes">Classes</Nav.Link>
             <Nav.Link href="/classesSignUp">Class Registration</Nav.Link>
-            <Nav.Link href="#link">My Grades</Nav.Link>
+            <Nav.Link href="/myGrades">My Grades</Nav.Link>
           </Nav>
           <Nav className="justify-content-end">
             <Nav.Link href="/logout" to="/logout">Log Out</Nav.Link>

@@ -11,6 +11,7 @@ import Dashboard from './components/dashboard/dashboard';
 import Logout from './components/dashboard/logout';
 import UserManagement from './components/user/userManagement';
 import ClassSignUp from './components/user/classSignUp';
+import GradesPage from './components/user/gradesPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const routing = (
@@ -26,6 +27,7 @@ const routing = (
 				<Route path="/logout" component={Logout} />
 				<Route path="/userInfo" component={UserManagement}/>
 				<Route path="/classesSignUp" component={ClassSignUp}/>
+				<Route path="/myGrades" component={GradesPage}/>
 			</Switch>
 		</React.StrictMode>
 	</Router>
