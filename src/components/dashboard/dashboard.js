@@ -3,7 +3,7 @@ import NavBar from './navBar'
 import { Doughnut } from 'react-chartjs-2'
 import Card from 'react-bootstrap/Card'
 import './dashboard.css'
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import jwt_decode from "jwt-decode"
 import axiosInstance from '../../axios';
 import React, { useState, useEffect } from 'react';
@@ -22,6 +22,7 @@ export default function Dashboard() {
                 infoUpdate(res.data)
                 console.log(res.data)
                 localStorage.setItem('user_type',userInfo.type)
+                console.log(userInfo.type)
             });
         } catch (error) { console.log(error.message) }
     }

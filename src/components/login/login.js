@@ -41,6 +41,13 @@ export default function LogIn() {
 					'JWT ' + localStorage.getItem('access_token');
 				console.log(res);
 				console.log(res.data);
+				try {
+					axiosInstance.get('user/userInfo/'+ localStorage.getItem("user_id")).then((res) => {
+						
+						console.log(res.data)
+						localStorage.setItem('user_type',res.data.type)
+					});
+				} catch (error) { console.log(error.message) }
 				history.push('/dashboard');
 			});
 	};
