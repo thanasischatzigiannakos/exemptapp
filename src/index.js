@@ -13,6 +13,7 @@ import UserManagement from './components/user/userManagement';
 import ClassSignUp from './components/user/classSignUp';
 import GradesPage from './components/user/gradesPage';
 import StudentRoute from './routes/studentRoute';
+import MyTeachings from './components/professor/myTeachings';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const routing = (
@@ -23,12 +24,13 @@ const routing = (
 				<Route path="/signup" component={Signup} />
 				<Route path="/profsignup" component={ProfSignUp} />
 				<Route path="/classes" component={ClassesList} />
-				<StudentRoute exact path="/dashboard" component={Dashboard} />
+				<Route exact path="/dashboard" component={Dashboard} />
 				<Route path="/login" component={LogIn} />
 				<Route path="/logout" component={Logout} />
 				<StudentRoute exact path="/userInfo" component={UserManagement}/>
 				<StudentRoute exact path="/classesSignUp" component={ClassSignUp}/>
 				<StudentRoute exact path="/myGrades" component={GradesPage}/>
+				<Route path="/myTeachings" component={MyTeachings} />
 			</Switch>
 		</React.StrictMode>
 	</Router>

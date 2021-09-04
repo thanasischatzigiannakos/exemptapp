@@ -55,8 +55,8 @@ export default function Signup() {
 
 
     return (
-        <div class="signUpStudent">
-            <div class="studentForm">
+        <div className="signUpStudent">
+            <div className="studentForm">
                 <h2>Student Registration Form</h2>
                 <Form onSubmit={handleSubmit} style={{ width: "35%", marginLeft: "30%", marginTop: "5%" }} >
                     <Form.Group >

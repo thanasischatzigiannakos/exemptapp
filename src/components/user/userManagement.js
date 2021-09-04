@@ -24,10 +24,10 @@ export default function UserManagement() {
 
     const user = {
         email: userInfo.email,
-        user_name: userInfo.usern_name,
+        user_name: userInfo.user_name,
         first_name: userInfo.first_name,
         last_name: userInfo.last_name,
-        type: "STUDENT",
+        type: userInfo.type,
         password: userInfo.password
     }
 

@@ -46,9 +46,10 @@ export default function LogIn() {
 						
 						console.log(res.data)
 						localStorage.setItem('user_type',res.data.type)
+						history.push('/dashboard');
 					});
 				} catch (error) { console.log(error.message) }
-				history.push('/dashboard');
+				
 			});
 	};
 

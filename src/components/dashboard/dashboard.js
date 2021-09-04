@@ -21,8 +21,7 @@ export default function Dashboard() {
             axiosInstance.get('user/userInfo/'+ localStorage.getItem("user_id")).then((res) => {
                 infoUpdate(res.data)
                 console.log(res.data)
-                localStorage.setItem('user_type',userInfo.type)
-                console.log(userInfo.type)
+                console.log(localStorage.getItem("user_type"))
             });
         } catch (error) { console.log(error.message) }
     }
