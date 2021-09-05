@@ -1,0 +1,25 @@
+.mainBody{
+    height: 100%;
+    width:100%;
+    overflow-x: scroll;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+.chartsBody{
+    display: flex;
+    align-items: flex-start;
+    width: 50%;
+    height: 50%;
+}
+
+.barChart{
+    width: 50%;
+    height: 30%;
+}
+
+.percentageAllClasses{
+    width: 50%;
+    height: 30%;
+}
+

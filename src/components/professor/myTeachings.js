@@ -2,11 +2,13 @@ import NavBar from '../dashboard/navBar';
 import Button from 'react-bootstrap/esm/Button';
 import ListGroup from 'react-bootstrap/ListGroup'
 import ListGroupItemfrom from 'react-bootstrap/ListGroupItem';
-import Modal from 'react-bootstrap/Modal'
-import Form from 'react-bootstrap/Form'
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+import Alert from 'react-bootstrap/Alert';
+import EditIcon from '@material-ui/icons/Edit';
 import axiosInstance from '../../axios';
 import React, { useState, useEffect, useRef } from 'react';
-import { Navbar } from 'react-bootstrap';
+import './myTeachings.css';
 
 export default function MyTeachings() {
 
@@ -15,14 +17,27 @@ export default function MyTeachings() {
     const [teachings, setTeachings] = useState([]);
     const [teachingInfo, setInfo] = useState([]);
     const [show, setShow] = useState(false);
+    const initialInfo = Object.freeze({
+        id:0,
+        schoolClass:{
+            id:0
+        },
+        class_year:0,
+        semester: 'SUMMER',
+        professor:{
+            user:0
+        },
+        theory_weight:0,
+        lab_weight:0,
+        theory_rule:0,
+        lab_rule:0
+    })
+    const [formInfo, updateFormInfo] = useState(initialInfo)
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
 
-    async function SelectedTeaching() {
-        // setInfo(teachings[id])
-        handleShow()
-    }
+    
 
     async function TeachingsList() {
         console.log('Fetching...')
@@ -35,29 +50,92 @@ export default function MyTeachings() {
     }
 
     async function SaveEdit(){
+        try{
+            axiosInstance.put('classes/editTeaching/' + formInfo.id+ '/',
+            {
+                schoolClass:{
+                    id:formInfo.schoolClass.id,
+                },
+                class_year:formInfo.class_year,
+                semester: formInfo.semester,
+                professor:{
+                    user:formInfo.professor.user.id,
+                },
+                theory_weight:formInfo.theory_weight,
+                lab_weight:formInfo.lab_weight,
+                theory_rule:formInfo.theory_rule,
+                lab_rule:formInfo.lab_rule
+            }).then((res) => {
+                console.log(formInfo)
+                console.log(res.data)
+                TeachingsList()
+                handleClose()
+                TeachingsList()
+            });
+
+        }catch(ex){
+            console.log(ex.message)
+            setError(ex.message)
+        }
+
         handleClose()
+    }
+
+    const handleChange = (e) => {
+        updateFormInfo({
+            ...formInfo,
+            // Trimming any whitespace
+            [e.target.name]: e.target.value.trim(),
+        });
+       
+    };
+
+    const  selectedTeaching = (e) => {
+        console.log(e.target.value)
+        console.log(teachings.find(object => {return object.id ===parseInt(e.target.value)}))
+        var thisTeaching = teachings.find(object => {return object.id ===parseInt(e.target.value)})
+        console.log(thisTeaching)
+        updateFormInfo({
+            id:thisTeaching.id,
+            schoolClass:{
+                id:thisTeaching.schoolClass.id,
+            },
+            class_year:thisTeaching.class_year,
+            semester: thisTeaching.semester,
+            professor:{
+                user:thisTeaching.professor.user.id,
+            },
+            theory_weight:thisTeaching.theory_weight,
+            lab_weight:thisTeaching.lab_weight,
+            theory_rule:thisTeaching.theory_rule,
+            lab_rule:thisTeaching.lab_rule
+
+        })
+        setInfo()
+        handleShow()
     }
 
     useEffect(() => {
         TeachingsList();
 
-    }, [teachings.join(',')])
+    }, [teachings.join(',')],)
 
     return (
         <div>
             <NavBar />
             <div className="myTeachingsBody">
+            {error && <Alert variant="danger">{error}</Alert>}
                 <div className="myTeachingsList">
-                    <ListGroup >
+                    <ListGroup className="w-50 p-3">
                         {teachings.map(teaching => (
                             <ListGroupItemfrom key={teaching.id}>
-                                <div className="listItem">
-                                    <div className="classInfo">
+                                <div className="teachingItem">
+                                    <div className="teachingInfo">
                                         <b>{Object.values(teaching.schoolClass.name)}</b>
                                     </div>
-                                    <div className="subToClass">
-                                        <Button value={teaching.id} className="w-100" type="submit" variant="dark" style={{ width: '100%', height: '75%' }}
-                                            onClick={SelectedTeaching}>Update Info</Button>
+                                    <div className="updateTeaching">
+                                        <Button value={teaching.id} className="w-50" type="button" variant="dark" style={{ width: '100%', height: '75%' }}
+                                            onClick={selectedTeaching}><EditIcon/> Edit Info</Button>
                                     </div>
                                 </div>
                             </ListGroupItemfrom>
@@ -66,35 +144,43 @@ export default function MyTeachings() {
                 </div>
                 <Modal show={show} onHide={handleClose} animation={false}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Modal heading</Modal.Title>
+                        <Modal.Title>Edit Selected Class</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                    <Form onSubmit={SaveEdit}>
+                    <Form>
+
+                    <Form.Group>
+                        <Form.Label style={{ color: "black" }}>Select your Position</Form.Label>
+                        <Form.Control as="select" id="rank" name="semester" onChange={handleChange} >
+                            <option value="SUMMER">Summer</option>
+                            <option value="WINTER">Winter</option>
+                        </Form.Control>
+                    </Form.Group>
                             <Form.Group id="theory_weight">
-                                <Form.Label style={{ color: "white" }}>Theory Weight</Form.Label>
-                                <Form.Control type="number" defaultValue='5' required />
+                                <Form.Label style={{ color: "black" }}>Theory Weight</Form.Label>
+                                <Form.Control type="number" step="any" name="theory_weight" defaultValue={formInfo.theory_weight} onChange={handleChange} required />
                             </Form.Group>
                             <Form.Group id="lab_weight">
-                                <Form.Label style={{ color: "white" }}>Lab Weight</Form.Label>
-                                <Form.Control type="number" defaultValue='5' required />
+                                <Form.Label style={{ color: "black" }}>Lab Weight</Form.Label>
+                                <Form.Control type="number" step="any" name="lab_weight" defaultValue={formInfo.lab_weight} onChange={handleChange} required />
                             </Form.Group>
                             <Form.Group id="theory_rule">
-                                <Form.Label style={{ color: "white" }}>Theory Rule</Form.Label>
-                                <Form.Control type="number" defaultValue='5'>
+                                <Form.Label style={{ color: "black" }}>Theory Rule</Form.Label>
+                                <Form.Control type="number" step="any" name="theory_rule" defaultValue={formInfo.theory_rule} onChange={handleChange} >
                                 </Form.Control>
                             </Form.Group>
                             <Form.Group id="lab_rule">
-                                <Form.Label style={{ color: "white" }}>Lab Rule</Form.Label>
-                                <Form.Control type="number" >
+                                <Form.Label style={{ color: "black" }}>Lab Rule</Form.Label>
+                                <Form.Control type="number" step="any" name="lab_rule" defaultValue={formInfo.lab_rule} onChange={handleChange} >
                                 </Form.Control>
                             </Form.Group>
-                            <Button disabled={loading}  type="submit" className="btn btn-light" style={{width:'100%'}}>
+                            <Button disabled={loading} onClick={SaveEdit}  className="btn btn-light" style={{width:'100%'}}>
                                 Save Changes
                             </Button>
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
+                        <Button variant="secondary" type="button" onClick={handleClose}>
                             Close
                         </Button>
                     </Modal.Footer>

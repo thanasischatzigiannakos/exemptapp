@@ -14,6 +14,7 @@ import ClassSignUp from './components/user/classSignUp';
 import GradesPage from './components/user/gradesPage';
 import StudentRoute from './routes/studentRoute';
 import MyTeachings from './components/professor/myTeachings';
+import MyStatistics from './components/professor/myStatistics';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const routing = (
@@ -30,7 +31,8 @@ const routing = (
 				<StudentRoute exact path="/userInfo" component={UserManagement}/>
 				<StudentRoute exact path="/classesSignUp" component={ClassSignUp}/>
 				<StudentRoute exact path="/myGrades" component={GradesPage}/>
-				<Route path="/myTeachings" component={MyTeachings} />
+				<Route path="/myTeachings" component={MyTeachings}/>
+				<Route path="/statistics" component={MyStatistics}/>
 			</Switch>
 		</React.StrictMode>
 	</Router>
