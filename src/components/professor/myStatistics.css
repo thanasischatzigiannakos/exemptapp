@@ -9,17 +9,41 @@
 .chartsBody{
     display: flex;
     align-items: flex-start;
-    width: 50%;
-    height: 50%;
+    width: 100%;
+    height: 100%;
 }
 
 .barChart{
     width: 50%;
     height: 30%;
+    padding: 1%;
+    border-style: inset;
+}
+.percentageForClass{
+    width: 50%;
+    height:50%;
+    border-style: inset;
 }
 
 .percentageAllClasses{
     width: 50%;
-    height: 30%;
+    height: 50%;
+    border-style: inset;
+}
+
+@media only screen and (max-width : 1300px) {
+
+    .chartsBody{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .barChart,
+    .percentageAllClasses,
+    .percentageForClass{
+        flex: 100%;
+        width: 100%;
+    }
 }
 

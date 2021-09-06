@@ -1,20 +1,25 @@
 import axiosInstance from '../../axios';
 import React, { useState, useEffect, useRef } from 'react';
 import NavBar from '../dashboard/navBar';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown'
 import { Bar, Doughnut } from 'react-chartjs-2';
 import './myStatistics.css';
+import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
 export default function MyStatistics() {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [teachings, setTeachings] = useState([]);
     const [signUps, setSignUps] = useState([]);
-    const [selectedClass, setClass] = useState(0);
+    const [selectedClass, setClass] = useState("");
     const [firstYearClasses, setFirstYearClasses] = useState(0);
     const [secondYearClasses, setSecondYearClasses] = useState(0);
     const [thirdYearClasses, setThirdYearClasses] = useState(0);
     const [fourthYearClasses, setFourthYearClasses] = useState(0);
     const [fifthYearClasses, setFifthYearClasses] = useState(0);
+    const [studentsPassed, setPassed] = useState(0);
+    const [studentsFailed, setFailed] = useState(0);
 
     async function TeachingsList() {
         console.log('Fetching...')
@@ -50,10 +55,17 @@ export default function MyStatistics() {
 
     }
 
-    async function StudentPercentagesTotal(){
-        console.log(signUps[0].teaching.professor.user.id)
+    async function StudentPercentagesTotal() {
         console.log(localStorage.getItem("user_id"))
         console.log(signUps.filter(object => object.teaching.professor.user.id === Number(localStorage.getItem("user_id"))))
+    }
+
+    const handleSelect = (e) => {
+        var tmp = teachings.filter(object => object.id === Number(e))
+        var selected = tmp[0]
+        setClass(selected.schoolClass.name)
+        setPassed(signUps.filter(object => object.teaching.id === Number(e) && object.final_score >= 5).length)
+        setFailed(signUps.filter(object => object.teaching.id === Number(e) && object.final_score < 5).length)
     }
 
     const barData = {
@@ -62,7 +74,7 @@ export default function MyStatistics() {
         datasets: [
             {
                 label: 'Classes',
-                data: [firstYearClasses, secondYearClasses, thirdYearClasses, fourthYearClasses, fifthYearClasses ],
+                data: [firstYearClasses, secondYearClasses, thirdYearClasses, fourthYearClasses, fifthYearClasses],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(255, 159, 64, 0.2)',
@@ -88,8 +100,27 @@ export default function MyStatistics() {
         datasets: [
             {
                 label: 'Exam Results',
-                data: [signUps.filter(object => object.teaching.professor.user.id === Number(localStorage.getItem("user_id")) && object.final_score>=5).length,
-                signUps.filter(object => object.teaching.professor.user.id === Number(localStorage.getItem("user_id")) && object.final_score<5).length],
+                data: [signUps.filter(object => object.teaching.professor.user.id === Number(localStorage.getItem("user_id")) && object.final_score >= 5).length,
+                signUps.filter(object => object.teaching.professor.user.id === Number(localStorage.getItem("user_id")) && object.final_score < 5).length],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)',
+                ],
+                borderWidth: 1,
+            },
+        ],
+    };
+
+    const classData = {
+        labels: ['Students Passed', 'Students Failed'],
+        datasets: [
+            {
+                label: 'Exam Results',
+                data: [studentsPassed, studentsFailed],
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(255, 99, 132, 0.2)',
@@ -114,9 +145,10 @@ export default function MyStatistics() {
     return (
         <div className="mainBody">
             <NavBar />
-            <b>{firstYearClasses} {thirdYearClasses}</b>
+            <h3>Statistics for my Classes</h3>
             <div className="chartsBody">
                 <div className="barChart">
+                <h4>Number of classes for each academic year</h4>
                     <Bar
                         data={barData}
                         options={{
@@ -133,10 +165,20 @@ export default function MyStatistics() {
                     />
                 </div>
                 <div className="percentageForClass">
-
+                <h4>Students that passed or failed a Selected Class</h4>
+                    {selectedClass !==""? <b>{selectedClass}</b>:<p>Please Select a class</p>}
+                    <Doughnut data={classData} />
+                    <DropdownButton id="myclasses-dropdown" variant="secondary" title="Select a Class" onSelect={handleSelect}>
+                        {teachings.map(teaching => (
+                            <Dropdown.Item eventKey={teaching.id}>{teaching.schoolClass.name}</Dropdown.Item>
+                        ))}
+                    </DropdownButton>
                 </div>
                 <div className="percentageAllClasses">
-                        <Doughnut data={data}/>
+                <h4>Number of students that passed or failed all of my classes</h4>
+                    <Doughnut data={data} />
+                    <b>{signUps.filter(object => object.teaching.professor.user.id === Number(localStorage.getItem("user_id")) && object.final_score >= 5).length} students passed my classes
+                     and {signUps.filter(object => object.teaching.professor.user.id === Number(localStorage.getItem("user_id")) && object.final_score < 5).length} failed</b>
                 </div>
 
             </div>

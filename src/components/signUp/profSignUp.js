@@ -17,7 +17,7 @@ export default function ProfSignUp() {
         first_name: '',
         last_name: '',
         type: 'PROFESSOR',
-        rank: '',
+        rank: 'PROFESSOR',
 
 
     });
@@ -58,8 +58,8 @@ export default function ProfSignUp() {
 
 
     return (
-        <div class="signUpProf">
-            <div class="profForm">
+        <div className="signUpProf">
+            <div className="profForm">
                 <h2>Teaching Staff Registration Form</h2>
                 <Form style={{ width: "35%", marginLeft: "30%", marginTop: "5%" }} >
                     <Form.Group >

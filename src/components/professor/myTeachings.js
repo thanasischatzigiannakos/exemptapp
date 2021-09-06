@@ -125,6 +125,7 @@ export default function MyTeachings() {
             <NavBar />
             <div className="myTeachingsBody">
             {error && <Alert variant="danger">{error}</Alert>}
+            <h3>My Classes</h3>
                 <div className="myTeachingsList">
                     <ListGroup className="w-50 p-3">
                         {teachings.map(teaching => (
