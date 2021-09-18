@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../axios';
 import { useHistory, Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
@@ -46,12 +46,27 @@ export default function LogIn() {
 						
 						console.log(res.data)
 						localStorage.setItem('user_type',res.data.type)
-						history.push('/dashboard');
+						if(localStorage.getItem('user_type')==="STUDENT"){
+							history.push('/dashboard')
+						}else{history.push('/statistics')}
 					});
 				} catch (error) { console.log(error.message) }
 				
 			});
 	};
+
+	function isLoggedIn(){
+		if(localStorage.getItem('user_id')!=null){
+			if(localStorage.getItem('user_type')==="STUDENT"){
+				history.push('/dashboard')
+			}else{history.push('/statistics')}
+		}
+	}
+
+	useEffect(() => {
+        isLoggedIn();
+
+    })
 
 	return (
 

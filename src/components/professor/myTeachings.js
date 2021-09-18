@@ -1,4 +1,4 @@
-import NavBar from '../dashboard/navBar';
+import ProfNavBar from '../navigation/profNavBar';
 import Button from 'react-bootstrap/esm/Button';
 import ListGroup from 'react-bootstrap/ListGroup'
 import ListGroupItemfrom from 'react-bootstrap/ListGroupItem';
@@ -122,7 +122,7 @@ export default function MyTeachings() {
 
     return (
         <div>
-            <NavBar />
+            <ProfNavBar />
             <div className="myTeachingsBody">
             {error && <Alert variant="danger">{error}</Alert>}
             <h3>My Classes</h3>

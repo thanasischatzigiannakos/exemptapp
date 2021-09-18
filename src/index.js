@@ -13,26 +13,31 @@ import UserManagement from './components/user/userManagement';
 import ClassSignUp from './components/user/classSignUp';
 import GradesPage from './components/user/gradesPage';
 import StudentRoute from './routes/studentRoute';
+import ProfRoute from './routes/profRoute';
 import MyTeachings from './components/professor/myTeachings';
 import MyStatistics from './components/professor/myStatistics';
+import GradingPage from './components/professor/gradingPage';
+import ProfManagement from './components/professor/profManagement';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const routing = (
 	<Router>
 		<React.StrictMode>
 			<Switch>
-				<Route exact path="/" component={App} />
+				<Route exact path="/" component={LogIn} />
 				<Route path="/signup" component={Signup} />
 				<Route path="/profsignup" component={ProfSignUp} />
 				<Route path="/classes" component={ClassesList} />
-				<Route exact path="/dashboard" component={Dashboard} />
 				<Route path="/login" component={LogIn} />
 				<Route path="/logout" component={Logout} />
+				<StudentRoute exact path="/dashboard" component={Dashboard} />
 				<StudentRoute exact path="/userInfo" component={UserManagement}/>
 				<StudentRoute exact path="/classesSignUp" component={ClassSignUp}/>
 				<StudentRoute exact path="/myGrades" component={GradesPage}/>
-				<Route path="/myTeachings" component={MyTeachings}/>
-				<Route path="/statistics" component={MyStatistics}/>
+				<ProfRoute path="/myTeachings" component={MyTeachings}/>
+				<ProfRoute path="/statistics" component={MyStatistics}/>
+				<ProfRoute path="/grading" component={GradingPage}/>
+				<ProfRoute path="/management" component={ProfManagement}/>
 			</Switch>
 		</React.StrictMode>
 	</Router>

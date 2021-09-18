@@ -1,11 +1,10 @@
 import axiosInstance from '../../axios';
 import React, { useState, useEffect, useRef } from 'react';
-import NavBar from '../dashboard/navBar';
+import ProfNavBar from '../navigation/profNavBar';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown'
 import { Bar, Doughnut } from 'react-chartjs-2';
 import './myStatistics.css';
-import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 
 export default function MyStatistics() {
     const [error, setError] = useState("");
@@ -144,7 +143,7 @@ export default function MyStatistics() {
 
     return (
         <div className="mainBody">
-            <NavBar />
+            <ProfNavBar />
             <h3>Statistics for my Classes</h3>
             <div className="chartsBody">
                 <div className="barChart">
