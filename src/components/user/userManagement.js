@@ -63,7 +63,7 @@ export default function UserManagement() {
         <div className="updateInfo">
             <NavBar></NavBar>
             <div className="updateForm">
-                <Card style={{ width: '50%' , marginLeft:'25%', marginRight:'25%',marginTop:'10%', backgroundColor:'#00299c' }}>
+                <Card style={{ width: '50%' , marginLeft:'25%', marginRight:'25%',marginTop:'10%', backgroundColor:'#343a40' }}>
                     <Card.Body>
                         <h2 className="text-center mb-4" style={{ color: "white" }}>Personal Information</h2>
                         {error && <Alert variant="danger">{error}</Alert>}

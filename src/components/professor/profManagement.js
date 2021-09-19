@@ -14,34 +14,57 @@ export default function ProfManagement() {
     const [loading, setLoading] = useState(false)
     const [userInfo, infoUpdate] = useState([]);
     const [update, setSuccess] = useState("")
-    const email = useRef()
-    const user_name = useRef()
-    const first_name = useRef()
-    const last_name = useRef()
-    const password = useRef()
-    const confPassword = useRef()
 
 
-    const user = {
+
+    const user = Object.freeze({
         email: userInfo.email,
         user_name: userInfo.user_name,
         first_name: userInfo.first_name,
         last_name: userInfo.last_name,
-        type: userInfo.type,
         password: userInfo.password
-    }
+    })
+    const [updatedInfo, setUpdatedInfo] = useState(user)
+
+    const handleChange = (e) => {
+        setUpdatedInfo({
+            ...updatedInfo,
+            // Trimming any whitespace
+            [e.currentTarget.name]: e.currentTarget.value.trim(),
+        });
+        console.log(updatedInfo)
+    };
 
     async function handleSubmit() {
         try {
-            setError("")
-            setLoading(true)
+
+            console.log(updatedInfo)
+            SaveUserEdit();
 
         } catch (Error) {
-
+            console.log(Error.message)
         }
 
     }
+    async function SaveUserEdit() {
+       
+        try {
+            axiosInstance.put('user/activateUser/' + localStorage.getItem('user_id') +'/',
+                {
+                    email: updatedInfo.email,
+                    user_name: updatedInfo.user_name,
+                    first_name: updatedInfo.first_name,
+                    last_name: updatedInfo.last_name,
+                    password: updatedInfo.password
+                }).then((res) => {
+                    console.log(res.data)
+                });
 
+        } catch (ex) {
+            console.log(ex.message)
+            setError(ex.message)
+        }
+    }
 
     async function UserInfo() {
         console.log('Fetching...')
@@ -61,9 +84,9 @@ export default function ProfManagement() {
     }, [])
     return (
         <div className="updateInfo">
-            <ProfNavBar/>
+            <ProfNavBar />
             <div className="updateForm">
-                <Card style={{ width: '50%' , marginLeft:'25%', marginRight:'25%',marginTop:'10%', backgroundColor:'#00299c' }}>
+                <Card style={{ width: '50%', marginLeft: '25%', marginRight: '25%', marginTop: '10%', backgroundColor: '#343a40' }}>
                     <Card.Body>
                         <h2 className="text-center mb-4" style={{ color: "white" }}>Personal Information</h2>
                         {error && <Alert variant="danger">{error}</Alert>}
@@ -71,32 +94,32 @@ export default function ProfManagement() {
                         <Form onSubmit={handleSubmit}>
                             <Form.Group id="email">
                                 <Form.Label style={{ color: "white" }}>Email</Form.Label>
-                                <Form.Control type="email" defaultValue={userInfo.email} required ref={email}>
+                                <Form.Control type="email" name="email" onChange={handleChange} defaultValue={userInfo.email} required >
                                 </Form.Control>
                             </Form.Group>
                             <Form.Group id="username">
                                 <Form.Label style={{ color: "white" }}>Username</Form.Label>
-                                <Form.Control type="text" defaultValue={userInfo.user_name} ref={user_name} required />
+                                <Form.Control type="text" name="user_name" onChange={handleChange} defaultValue={userInfo.user_name} required />
                             </Form.Group>
                             <Form.Group id="firstname">
                                 <Form.Label style={{ color: "white" }}>First Name</Form.Label>
-                                <Form.Control type="name" defaultValue={userInfo.first_name} ref={first_name} required />
+                                <Form.Control type="name" name="first_name" onChange={handleChange} defaultValue={userInfo.first_name} required />
                             </Form.Group>
                             <Form.Group id="lastname">
                                 <Form.Label style={{ color: "white" }}>Last Name</Form.Label>
-                                <Form.Control type="text" defaultValue={userInfo.last_name} ref={last_name} required />
+                                <Form.Control type="text" name="last_name" onChange={handleChange} defaultValue={userInfo.last_name} required />
                             </Form.Group>
                             <Form.Group id="passwd">
                                 <Form.Label style={{ color: "white" }}>New Password</Form.Label>
-                                <Form.Control type="password" defaultValue={userInfo.password} required ref={password}>
+                                <Form.Control type="password" name="password" onChange={handleChange} defaultValue={userInfo.password} required >
                                 </Form.Control>
                             </Form.Group>
                             <Form.Group id="conf_passwd">
                                 <Form.Label style={{ color: "white" }}>Confirm New Password</Form.Label>
-                                <Form.Control type="password" required ref={confPassword}>
+                                <Form.Control type="password" required >
                                 </Form.Control>
                             </Form.Group>
-                            <Button disabled={loading}  type="submit" className="btn btn-light" style={{width:'100%'}}>
+                            <Button type="submit" className="btn btn-light" style={{ width: '100%' }}>
                                 Update
                             </Button>
                         </Form>
