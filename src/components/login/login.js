@@ -56,14 +56,14 @@ export default function LogIn() {
 				} catch (ex) {
 					console.log(ex.message)
 					setFlag(true)
-					setError(ex.message)
+					setError("Sign In Failed!If you just signed in please wait for an admin to activate your account!!!")
 					console.log(error)
 				}
 
 			}).catch(e=>{
 				console.log(e)
 				setFlag(true)
-				setError(e.message)
+				setError("Sign In Failed! If you just signed in please wait for an admin to activate your account!")
 
 			})
 	};
