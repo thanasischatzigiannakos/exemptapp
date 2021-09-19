@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import ProfNavBar from '../navigation/profNavBar';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown'
+import Alert from 'react-bootstrap/Alert'
 import { Bar, Doughnut } from 'react-chartjs-2';
 import './myStatistics.css';
 
@@ -27,7 +28,10 @@ export default function MyStatistics() {
                 console.log(res.data)
                 setTeachings(res.data)
             });
-        } catch (error) { console.log(error.message) }
+        } catch (error) {
+            console.log(error.message)
+            setError(error.message)
+        }
     }
 
     async function SignUpsList() {
@@ -147,7 +151,7 @@ export default function MyStatistics() {
             <h3>Statistics for my Classes</h3>
             <div className="chartsBody">
                 <div className="barChart">
-                <h4>Number of classes for each academic year</h4>
+                    <h4>Number of classes for each academic year</h4>
                     <Bar
                         data={barData}
                         options={{
@@ -164,8 +168,8 @@ export default function MyStatistics() {
                     />
                 </div>
                 <div className="percentageForClass">
-                <h4>Students that passed or failed a Selected Class</h4>
-                    {selectedClass !==""? <b>{selectedClass}</b>:<p>Please Select a class</p>}
+                    <h4>Students that passed or failed a Selected Class</h4>
+                    {selectedClass !== "" ? <b>{selectedClass}</b> : <p>Please Select a class</p>}
                     <Doughnut data={classData} />
                     <DropdownButton id="myclasses-dropdown" variant="secondary" title="Select a Class" onSelect={handleSelect}>
                         {teachings.map(teaching => (
@@ -174,10 +178,10 @@ export default function MyStatistics() {
                     </DropdownButton>
                 </div>
                 <div className="percentageAllClasses">
-                <h4>Number of students that passed or failed all of my classes</h4>
+                    <h4>Number of students that passed or failed all of my classes</h4>
                     <Doughnut data={data} />
                     <b>{signUps.filter(object => object.teaching.professor.user.id === Number(localStorage.getItem("user_id")) && object.final_score >= 5).length} students passed my classes
-                     and {signUps.filter(object => object.teaching.professor.user.id === Number(localStorage.getItem("user_id")) && object.final_score < 5).length} failed</b>
+                        and {signUps.filter(object => object.teaching.professor.user.id === Number(localStorage.getItem("user_id")) && object.final_score < 5).length} failed</b>
                 </div>
 
             </div>
