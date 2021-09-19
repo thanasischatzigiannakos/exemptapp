@@ -15,7 +15,6 @@ export default function NavBar() {
           <Nav className="mr-auto">
             <Nav.Link href="/dashboard">Home</Nav.Link>
             <Nav.Link href="/userInfo">My Information</Nav.Link>
-            <Nav.Link href="/classes">Classes</Nav.Link>
             <Nav.Link href="/classesSignUp">Class Registration</Nav.Link>
             <Nav.Link href="/myGrades">My Grades</Nav.Link>
           </Nav>

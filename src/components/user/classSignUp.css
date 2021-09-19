@@ -1,18 +1,47 @@
-.classesListed{
+.classesListed {
     width: 50%;
     height: 50%;
     margin-left: 25%;
     margin-right: 25%;
     overflow-y: scroll;
     scroll-behavior: smooth;
-}
-
-.listItem{
     display: flex;
 }
 
-.subToClass{
+.listItem {
+    display: flex;
+}
+
+.classInfo {
+    width: 80%;
+}
+
+.subToClass {
     margin-top: 5%;
     margin-left: 5%;
-    width: 15%;
+    width: 20%;
+}
+
+@media only screen and (max-width : 966px) {
+
+    .classesListed {
+        width: 80%;
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .listItem {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .classInfo {
+        width: 50%;
+    }
+
+    .subToClass {
+        width: 50%;
+    }
 }
