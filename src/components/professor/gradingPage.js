@@ -11,14 +11,11 @@ import { InputLabel } from '@material-ui/core';
 import FormGroup from 'react-bootstrap/esm/FormGroup';
 
 export default function GradingPage() {
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
     const [teachings, setTeachings] = useState([]);
     const [signUps, setSignUps] = useState([]);
     const [selectedToGrade, setSelectedGrading] = useState([]);
     const [selectedClass, setClass] = useState("");
-    const [theory, setTheory] = useState(0);
-    const [lab, setLab] = useState(0);
+
 
 
     async function TeachingsList() {

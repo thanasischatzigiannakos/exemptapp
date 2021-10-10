@@ -65,8 +65,8 @@ export default function ClassSignUp() {
     };
 
     const handleUnregister = (e) => {
-        console.log(e.target.value)
-        const thisTeaching= userClasses.find(object => {return object.teaching.id = e.target.value})
+        console.log(e.currentTarget.value)
+        const thisTeaching= userClasses.find(object => {return object.teaching.id = e.currentTarget.value})
         console.log(thisTeaching.id)
         try {
             axiosInstance.delete('classes/deleteSignUp/' + thisTeaching.id).then((res) => {
